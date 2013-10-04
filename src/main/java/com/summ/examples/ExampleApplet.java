@@ -20,8 +20,6 @@ public class ExampleApplet extends Applet {
 
 	/** time at last frame */
 	private long mLastFrame;
-	/** frames per second */
-	private int mFps;
 
 	/** is the game loop running */
 	private boolean running = false;
