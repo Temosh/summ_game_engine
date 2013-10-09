@@ -19,6 +19,7 @@ public class EmptyState extends GameState {
 
 	@Override
 	public void onDrawFrame() {
+		System.out.println("Empty state draw");
 		/* Stub */
 	}
 

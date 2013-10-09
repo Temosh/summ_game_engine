@@ -32,7 +32,7 @@ public class GLRenderer {
 	public GLRenderer(IRendererListener listener, boolean useSeparateThread) {
 		mListener = listener;
 
-		mRenderThread = new Thread(new RendererRunnable(), RENDERER_THREAD_NAME);
+		if (useSeparateThread) mRenderThread = new Thread(new RendererRunnable(), RENDERER_THREAD_NAME);
 	}
 
 	public void start() {

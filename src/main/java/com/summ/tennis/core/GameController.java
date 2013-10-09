@@ -3,6 +3,7 @@ package com.summ.tennis.core;
 import org.lwjgl.opengl.GL11;
 
 import com.summ.gl.IFrameListener;
+import com.summ.tennis.states.AnimationState;
 import com.summ.tennis.states.EmptyState;
 import com.summ.tennis.states.GameState;
 import com.summ.tennis.states.LoadingState;
@@ -18,13 +19,15 @@ public class GameController implements IFrameListener, IStateLoaderListener {
 
 	public GameController() {
 		mCurrentState = new EmptyState();
-
-		mStateLoader = new StateLoader(this);
-		mStateLoader.loadState(new LoadingState());
 	}
 
 	@Override
 	public void onCreate() {
+		System.out.println("OpenGL version: " + GL11.glGetString(GL11.GL_VERSION));
+
+		mStateLoader = new StateLoader(this);
+		mStateLoader.loadState(new LoadingState());
+
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
 		GL11.glOrtho(0, 800, 0, 600, 1, -1);
@@ -58,12 +61,16 @@ public class GameController implements IFrameListener, IStateLoaderListener {
 
 	@Override
 	public void onDestroy() {
-		
+		System.exit(0);
 	}
 
 	@Override
 	public void onLoadCompleate(GameState state) {
 		mNextState = state;
 		mNewStatePrepared = true;
+		
+		if (state instanceof LoadingState) {
+			mStateLoader.loadState(new AnimationState());
+		}
 	}
 }

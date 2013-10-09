@@ -2,10 +2,9 @@ package com.summ.tennis.states;
 
 import com.summ.gl.GLScene;
 import com.summ.gl.Quad;
-import com.summ.gl.utils.TextureLoader;
 import com.summ.math.Vector3f;
 
-public class LoadingState extends GameState {
+public class AnimationState extends GameState {
 
 	private GLScene mGLScene;
 
@@ -13,29 +12,35 @@ public class LoadingState extends GameState {
 	
 	private int rotation;
 	
-	public LoadingState() {
+	public AnimationState() {
 		
 	}
 
 	@Override
 	public void init() {
-		System.out.println("Loading state init");
+		System.out.println("Animation state init");
+
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		mGLScene = new GLScene();
 
 		mQuad = new Quad();
-		mQuad.setPosition(new Vector3f(300, 200, 0));
-		mQuad.setSize(200, 200);
+		mQuad.setPosition(new Vector3f(400, 300, 0));
+		mQuad.setSize(100, 100);
 		mQuad.setRotation(rotation);
-		mQuad.setTexture(TextureLoader.loadTexture("/res/orange.png"));
 
 		mGLScene.addObject(mQuad);
 	}
 
 	@Override
 	public void onStart() {
-		System.out.println("Loading state start");
+		System.out.println("Animation state start");
 
+		
 	}
 
 	@Override
@@ -46,6 +51,9 @@ public class LoadingState extends GameState {
 
 	@Override
 	public void onDrawFrame() {
+		rotation++;
+		mQuad.setRotation(rotation);
+
 		mGLScene.draw();
 	}
 }
