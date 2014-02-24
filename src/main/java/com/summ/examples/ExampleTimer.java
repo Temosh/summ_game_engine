@@ -69,7 +69,7 @@ public class ExampleTimer {
 
 	/**
 	 * Calculate how many milliseconds have passed since last frame.
-	 * 
+	 *
 	 * @return milliseconds passed since last frame
 	 */
 	public int getDelta() {
@@ -82,7 +82,7 @@ public class ExampleTimer {
 
 	/**
 	 * Get the accurate system time
-	 * 
+	 *
 	 * @return The system time in milliseconds
 	 */
 	public long getTime() {
