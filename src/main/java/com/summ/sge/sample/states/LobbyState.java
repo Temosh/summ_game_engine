@@ -3,15 +3,13 @@ package com.summ.sge.sample.states;
 import com.summ.sge.graphics.core.KeyEvent;
 import com.summ.sge.graphics.core.MouseEvent;
 import com.summ.sge.graphics.core.Scene;
-import com.summ.sge.graphics.core.TextureLoader;
 import com.summ.sge.graphics.math.Vector3f;
-import com.summ.sge.widgets.Button;
-import com.summ.sge.widgets.Frame;
+import com.summ.sge.sample.core.LobbyMenu;
 
 public class LobbyState extends GameState {
 
 	private Scene mScene;
-	private Frame mMenu;
+	private LobbyMenu mMenu;
 //	private HUD mHud;
 
 	private boolean isPaused;
@@ -32,21 +30,10 @@ public class LobbyState extends GameState {
 
 		mScene = new Scene();
 
-		mMenu = new Frame(300, 400);
+		mMenu = new LobbyMenu(mStateLoader, 300, 400);
 		mMenu.setPosition(new Vector3f(250.0f, 100.0f, 0.0f));
-		mMenu.setBackgroundTexture(TextureLoader.loadStubTexture());
 
 		mScene.addObject(mMenu);
-
-		Button button1 = new Button();
-		button1.setPosition(new Vector3f(25.0f, 25.0f, 0.0f));
-		button1.setSize(250, 50);
-		mMenu.addElement(button1);
-
-		Button button2 = new Button();
-		button2.setPosition(new Vector3f(25.0f, 100.0f, 0.0f));
-		button2.setSize(250, 50);
-		mMenu.addElement(button2);
 	}
 
 	@Override
@@ -86,6 +73,6 @@ public class LobbyState extends GameState {
 
 	@Override
 	public boolean onMouseEvent(MouseEvent event) {
-		return false;
+		return mMenu.onMouseEvent(event);
 	}
 }

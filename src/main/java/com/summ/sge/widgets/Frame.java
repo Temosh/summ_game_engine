@@ -2,6 +2,7 @@ package com.summ.sge.widgets;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 import com.summ.sge.graphics.core.IMouseListener;
 import com.summ.sge.graphics.core.MouseEvent;
@@ -32,6 +33,7 @@ public class Frame extends BoxObject implements IMouseListener {
 	}
 
 	public void addElement(int position, BoxObject boxObject) {
+		boxObject.setOffset(mPosition);
 		mElements.add(position, boxObject);
 	}
 
@@ -49,7 +51,17 @@ public class Frame extends BoxObject implements IMouseListener {
 
 	@Override
 	public boolean onMouseEvent(MouseEvent event) {
-		// TODO Auto-generated method stub
+		ListIterator<BoxObject> listIter = mElements.listIterator(mElements.size());
+		while (listIter.hasPrevious()) {
+			BoxObject element = listIter.previous();
+			if (event.getX() > element.getAbsolutePosition().getX() &&
+					event.getX() < element.getAbsolutePosition().getX() + element.getWidth() &&
+					event.getY() > element.getAbsolutePosition().getY() &&
+					event.getY() < element.getAbsolutePosition().getY() + element.getHeight()) {
+				boolean result = element.onMouseEvent(event);
+				if (result) return true;
+			}
+		}
 		return false;
 	}
 

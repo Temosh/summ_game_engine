@@ -1,5 +1,6 @@
 package com.summ.sge.widgets;
 
+import com.summ.sge.graphics.core.MouseEvent;
 import com.summ.sge.graphics.core.ObjectFactory;
 import com.summ.sge.graphics.objects.BoxObject;
 import com.summ.sge.graphics.objects.Rectangle;
@@ -7,6 +8,12 @@ import com.summ.sge.graphics.objects.Rectangle;
 public class Button extends BoxObject {
 
 	private Rectangle mBody;
+
+	private ButtonListener mMouseListener;
+
+	public interface ButtonListener {
+		boolean onButtonClick();
+	}
 
 	public Button() {
 		mBody = ObjectFactory.newRectangle();
@@ -30,5 +37,17 @@ public class Button extends BoxObject {
 	@Override
 	public void updateContentPosition() {
 		mBody.setPosition(getAbsolutePosition());
+	}
+
+	@Override
+	public boolean onMouseEvent(MouseEvent event) {
+		if (mMouseListener != null && event.getAction() == MouseEvent.MOUSE_RELEASED) {
+			return mMouseListener.onButtonClick();
+		}
+		return false;
+	}
+
+	public void setButtonListener(ButtonListener buttonListener) {
+		mMouseListener = buttonListener;
 	}
 }

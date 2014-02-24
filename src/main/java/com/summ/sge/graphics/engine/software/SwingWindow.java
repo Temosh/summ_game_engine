@@ -11,6 +11,7 @@ import javax.swing.JFrame;
 
 import com.summ.sge.graphics.core.IFrameListener;
 import com.summ.sge.graphics.core.IKeyboardListener;
+import com.summ.sge.graphics.core.IMouseListener;
 import com.summ.sge.graphics.core.Window;
 
 public class SwingWindow extends Window {
@@ -48,21 +49,9 @@ public class SwingWindow extends Window {
 				mRenderer.stop();
 			}
 		});
-		mFrame.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-				System.out.println("MOUSE RELEASED @ X: " + x + " Y: " + y);
-			}
-		});
 		mFrame.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					System.out.println("SPACE KEY IS DOWN");
-				}
-
 				int action = com.summ.sge.graphics.core.KeyEvent.KEY_RELEASED;
 				int key;
 
@@ -88,8 +77,34 @@ public class SwingWindow extends Window {
 		});
 
 		mCanvas = new SwingCanvas(800, 600);
-		mFrame.add(mCanvas);
+		mCanvas.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				int action = com.summ.sge.graphics.core.MouseEvent.MOUSE_RELEASED;
+				int key;
 
+				switch (e.getButton()) {
+				case MouseEvent.BUTTON1:
+					key = com.summ.sge.graphics.core.MouseEvent.BUTTON1;
+					break;
+				case MouseEvent.BUTTON2:
+					key = com.summ.sge.graphics.core.MouseEvent.BUTTON2;
+					break;
+				case MouseEvent.BUTTON3:
+					key = com.summ.sge.graphics.core.MouseEvent.BUTTON3;
+					break;
+				default:
+					key = com.summ.sge.graphics.core.MouseEvent.NOBUTTON;
+					break;
+				}
+
+				for (IMouseListener listener : mMouseListeners) {
+					listener.onMouseEvent(new com.summ.sge.graphics.core.MouseEvent(action, key, e.getX(), e.getY()));
+				}
+			}
+		});
+
+		mFrame.add(mCanvas);
 		mFrame.setVisible(true);
 
 		mFrameListener.onCreate();
