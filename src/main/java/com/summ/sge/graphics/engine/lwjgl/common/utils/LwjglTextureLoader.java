@@ -39,7 +39,7 @@ public class LwjglTextureLoader extends AbstractTextureLoader {
 			buffer.put((byte) 0x00);
 			buffer.put((byte) 0x99);
 			buffer.put((byte) 0x00);
-			buffer.put((byte) 0x99);
+			buffer.put((byte) 0xff);
 		}
 
 		buffer.flip(); // FOR THE LOVE OF GOD DO NOT FORGET THIS

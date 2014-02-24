@@ -1,7 +1,9 @@
 package com.summ.sge.graphics.engine.software.objects;
 
+import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Composite;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
@@ -22,14 +24,21 @@ public class SwingRectangle extends Rectangle {
 		g.translate(mPosition.getX(), mPosition.getY());
 		g.rotate(mRotation);
 
+		Composite originComposite = g.getComposite();
+		if (getAlpha() < 1.0f) {
+			g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, getAlpha()));
+		}
+
 		if (mTexture > -1) {
 			BufferedImage image = TextureResizer.BILINEAR.resize(TextureHolder.INSTANCE.getTextureImage(mTexture), mWidth, mHeight);
 			g.drawImage(image, null, 0, 0);
 		} else {
-			g.setStroke(new BasicStroke(2));
-			g.setColor(new Color(0xFF0000));
+			g.setStroke(new BasicStroke(1));
+			g.setColor(new Color(mColor));
 			g.fillRect(0, 0, mWidth, mHeight);
 		}
+
+		g.setComposite(originComposite);
 
 		g.setTransform(identity);
 	}

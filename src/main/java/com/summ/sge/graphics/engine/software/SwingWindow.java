@@ -59,6 +59,9 @@ public class SwingWindow extends Window {
 				case KeyEvent.VK_A:
 					key = com.summ.sge.graphics.core.KeyEvent.VK_A;
 					break;
+				case KeyEvent.VK_O:
+					key = com.summ.sge.graphics.core.KeyEvent.VK_O;
+					break;
 				case KeyEvent.VK_ESCAPE:
 					key = com.summ.sge.graphics.core.KeyEvent.VK_ESCAPE;
 					break;

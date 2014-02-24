@@ -87,8 +87,8 @@ public class Frame extends BoxObject implements IMouseListener {
 		//TODO
 	}
 
-	public void setBackgroundAlpha(int alpha) {
-		//TODO
+	public void setBackgroundAlpha(float alpha) {
+		mContentArea.setAlpha(alpha);
 	}
 
 	@Override

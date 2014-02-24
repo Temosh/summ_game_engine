@@ -12,7 +12,7 @@ public class SwingTextureLoader extends AbstractTextureLoader {
 	public int loadStubTexture() {
 		BufferedImage image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = image.createGraphics();
-		g.setColor(Color.CYAN);
+		g.setColor(new Color(0x009900));
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 
 		return loadTexture(image);

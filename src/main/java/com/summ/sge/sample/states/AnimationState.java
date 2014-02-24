@@ -34,6 +34,7 @@ public class AnimationState extends GameState {
 		mQuad.setPosition(new Vector3f(400, 300, 0));
 		mQuad.setSize(100, 100);
 		mQuad.setRotation(rotation);
+		mQuad.setColor(0xff009999);
 
 		mGLScene.addObject(mQuad);
 	}

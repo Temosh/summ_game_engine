@@ -109,6 +109,9 @@ public class LwjglWindow extends Window {
 			case Keyboard.KEY_A:
 				key = KeyEvent.VK_A;
 				break;
+			case Keyboard.KEY_O:
+				key = KeyEvent.VK_O;
+				break;
 			case Keyboard.KEY_ESCAPE:
 				key = KeyEvent.VK_ESCAPE;
 				break;

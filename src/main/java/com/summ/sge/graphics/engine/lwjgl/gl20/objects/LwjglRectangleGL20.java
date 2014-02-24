@@ -7,6 +7,7 @@ import static org.lwjgl.opengl.GL20.*;
 
 import com.summ.sge.graphics.engine.lwjgl.common.utils.LwjglProgramLoader;
 import com.summ.sge.graphics.objects.Rectangle;
+import com.summ.sge.graphics.utils.ColorUtils;
 
 public class LwjglRectangleGL20 extends Rectangle {
 
@@ -23,31 +24,34 @@ public class LwjglRectangleGL20 extends Rectangle {
 		glRotatef(mRotation, 0f, 0f, 1f);
 		glTranslatef(-mPosition.getX(), -mPosition.getY(), 0);
 
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_DST_ALPHA);
-
-		if (mTexture > -1) {
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, mTexture);
-		}
+		glColor4f(ColorUtils.getRed(mColor), ColorUtils.getGreen(mColor), ColorUtils.getBlue(mColor), ColorUtils.getAlpha(mColor));
 
 		int textureHandler = glGetUniformLocation(program, "sTexture");
-		glUniform1i(textureHandler, 0);
+		int useTextureHandler = glGetUniformLocation(program, "useTexture");
+
+		if (mTexture > -1) {
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, mTexture);
+
+			glUniform1i(textureHandler, 0);
+			glUniform1i(useTextureHandler, 1);
+		} else {
+			glUniform1i(useTextureHandler, 0);
+		}
 
 		glBegin(GL_QUADS);
-			glColor4f(1.0f, 1.0f, 1.0f, 0.33f);
 			glTexCoord2f(0.0f, 1.0f);
 			glVertex2f(mPosition.getX(),			mPosition.getY());
 
-			glColor4f(1.0f, 1.0f, 1.0f, 0.0f);
 			glTexCoord2f(1.0f, 1.0f);
 			glVertex2f(mPosition.getX() + mWidth,	mPosition.getY());
 
-			glColor4f(1.0f, 1.0f, 1.0f, 0.66f);
 			glTexCoord2f(1.0f, 0.0f);
 			glVertex2f(mPosition.getX() + mWidth,	mPosition.getY() + mHeight);
 
-			glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
 			glTexCoord2f(0.0f, 0.0f);
 			glVertex2f(mPosition.getX(),			mPosition.getY() + mHeight);
 		glEnd();

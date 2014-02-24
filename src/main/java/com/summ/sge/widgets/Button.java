@@ -30,6 +30,11 @@ public class Button extends BoxObject {
 	}
 
 	@Override
+	public void setAlpha(float alpha) {
+		mBody.setAlpha(alpha);
+	}
+
+	@Override
 	public void draw() {
 		mBody.draw();
 	}
