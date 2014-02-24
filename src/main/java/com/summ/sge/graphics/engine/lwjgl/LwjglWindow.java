@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 import com.summ.sge.graphics.core.GraphicsEngine;
 import com.summ.sge.graphics.core.IFrameListener;
 import com.summ.sge.graphics.core.IKeyboardListener;
+import com.summ.sge.graphics.core.IMouseListener;
 import com.summ.sge.graphics.core.KeyEvent;
 import com.summ.sge.graphics.core.Window;
 
@@ -85,14 +86,30 @@ public class LwjglWindow extends Window {
 	}
 
 	public void pollInput() {
-		if (Mouse.isButtonDown(0)) {
-			int x = Mouse.getX();
-			int y = Mouse.getY();
-			System.out.println("MOUSE DOWN @ X: " + x + " Y: " + y);
-		}
+		while (Mouse.next()){
+			if (!Mouse.getEventButtonState()) {
+				int action = com.summ.sge.graphics.core.MouseEvent.MOUSE_RELEASED;
+				int key;
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-			System.out.println("SPACE KEY IS DOWN");
+				switch (Mouse.getEventButton()) {
+				case 0:
+					key = com.summ.sge.graphics.core.MouseEvent.BUTTON1;
+					break;
+				case 1:
+					key = com.summ.sge.graphics.core.MouseEvent.BUTTON2;
+					break;
+				case 2:
+					key = com.summ.sge.graphics.core.MouseEvent.BUTTON3;
+					break;
+				default:
+					key = com.summ.sge.graphics.core.MouseEvent.NOBUTTON;
+					break;
+				}
+
+				for (IMouseListener listener : mMouseListeners) {
+					listener.onMouseEvent(new com.summ.sge.graphics.core.MouseEvent(action, key, Mouse.getEventX(), Mouse.getEventY()));
+				}
+			}
 		}
 
 		while (Keyboard.next()) {

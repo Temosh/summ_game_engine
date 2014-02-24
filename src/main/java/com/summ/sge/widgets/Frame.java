@@ -51,15 +51,17 @@ public class Frame extends BoxObject implements IMouseListener {
 
 	@Override
 	public boolean onMouseEvent(MouseEvent event) {
-		ListIterator<BoxObject> listIter = mElements.listIterator(mElements.size());
-		while (listIter.hasPrevious()) {
-			BoxObject element = listIter.previous();
-			if (event.getX() > element.getAbsolutePosition().getX() &&
-					event.getX() < element.getAbsolutePosition().getX() + element.getWidth() &&
-					event.getY() > element.getAbsolutePosition().getY() &&
-					event.getY() < element.getAbsolutePosition().getY() + element.getHeight()) {
-				boolean result = element.onMouseEvent(event);
-				if (result) return true;
+		if (event.getAction() == MouseEvent.MOUSE_RELEASED && event.getButton() == MouseEvent.BUTTON1) {
+			ListIterator<BoxObject> listIter = mElements.listIterator(mElements.size());
+			while (listIter.hasPrevious()) {
+				BoxObject element = listIter.previous();
+				if (event.getX() > element.getAbsolutePosition().getX() &&
+						event.getX() < element.getAbsolutePosition().getX() + element.getWidth() &&
+						event.getY() > element.getAbsolutePosition().getY() &&
+						event.getY() < element.getAbsolutePosition().getY() + element.getHeight()) {
+					boolean result = element.onMouseEvent(event);
+					if (result) return true;
+				}
 			}
 		}
 		return false;
