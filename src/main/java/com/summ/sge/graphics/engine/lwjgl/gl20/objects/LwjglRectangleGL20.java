@@ -16,8 +16,9 @@ public class LwjglRectangleGL20 extends Rectangle {
 
 	@Override
 	public void draw() {
-		int program = LwjglProgramLoader.getDefaultProgram();
+		glLoadIdentity();
 
+		int program = LwjglProgramLoader.getDefaultProgram();
 		glUseProgram(program);
 
 		glTranslatef(mPosition.getX(), mPosition.getY(), 0);

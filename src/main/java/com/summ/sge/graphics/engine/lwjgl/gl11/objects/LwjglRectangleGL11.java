@@ -13,6 +13,7 @@ import static org.lwjgl.opengl.GL11.glColor4f;
 import static org.lwjgl.opengl.GL11.glDisable;
 import static org.lwjgl.opengl.GL11.glEnable;
 import static org.lwjgl.opengl.GL11.glEnd;
+import static org.lwjgl.opengl.GL11.glLoadIdentity;
 import static org.lwjgl.opengl.GL11.glRotatef;
 import static org.lwjgl.opengl.GL11.glTexCoord2f;
 import static org.lwjgl.opengl.GL11.glTranslatef;
@@ -25,6 +26,8 @@ class LwjglRectangleGL11 extends Rectangle {
 
 	@Override
 	public void draw() {
+		glLoadIdentity();
+
 		glTranslatef(mPosition.getX(), mPosition.getY(), 0);
 		glRotatef(mRotation, 0f, 0f, 1f);
 		glTranslatef(-mPosition.getX(), -mPosition.getY(), 0);
