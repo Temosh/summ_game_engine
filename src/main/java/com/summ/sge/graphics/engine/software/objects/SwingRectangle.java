@@ -22,7 +22,7 @@ public class SwingRectangle extends Rectangle {
 		AffineTransform identity = g.getTransform();
 
 		g.translate(mPosition.getX(), mPosition.getY());
-		g.rotate(mRotation);
+		g.rotate(Math.toRadians(mRotation));
 
 		Composite originComposite = g.getComposite();
 		if (getAlpha() < 1.0f) {

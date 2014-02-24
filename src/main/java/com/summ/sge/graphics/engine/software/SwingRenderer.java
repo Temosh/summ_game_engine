@@ -6,6 +6,8 @@ public class SwingRenderer {
 
 	private static final String RENDERER_THREAD_NAME = "Renderer_thread";
 
+	private static final int FRAME_RATE = 60;
+
 	private Thread mRenderThread;
 
 	private IRendererListener mListener;
@@ -21,6 +23,11 @@ public class SwingRenderer {
 
 			while(!Thread.interrupted() && isRunning) {
 				mListener.onDraw();
+				try {
+					Thread.sleep(1000 / FRAME_RATE);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 
 			System.out.println(Thread.currentThread().getName() + " destroy");

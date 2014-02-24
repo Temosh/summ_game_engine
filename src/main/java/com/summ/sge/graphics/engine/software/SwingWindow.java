@@ -16,8 +16,6 @@ import com.summ.sge.graphics.core.Window;
 
 public class SwingWindow extends Window {
 
-	private static final int FRAME_RATE = 60;
-
 	private SwingRenderer mRenderer;
 
 	private IFrameListener mFrameListener;
