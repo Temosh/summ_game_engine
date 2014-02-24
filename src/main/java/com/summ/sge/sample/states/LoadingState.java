@@ -28,8 +28,8 @@ public class LoadingState extends GameState {
 //		TextureLoader.loadTexture("/res/big.jpg");
 
 		mQuad = ObjectFactory.newRectangle();
-		mQuad.setPosition(new Vector3f(150, 200, 0));
-		mQuad.setSize(200, 200);
+		mQuad.setPosition(new Vector3f(150, 150, 0));
+		mQuad.setSize(200, 300);
 		mQuad.setRotation(rotation);
 		mQuad.setTexture(TextureLoader.loadTexture("orange.png"));
 //		mQuad.setTexture(TextureLoader.loadTexture("pop.jpg"));
