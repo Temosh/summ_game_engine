@@ -53,6 +53,43 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<configuration>
+					<executable>java</executable>
+					<arguments>
+						<argument>-Djava.library.path=target/natives</argument>
+						<argument>-classpath</argument>
+						<classpath />
+						<argument>com.summ.sge.sample.SgeApp</argument>
+						<argument>${engine}</argument>
+					</arguments>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>gl11</id>
+			<properties>
+				<engine>gl11</engine>
+			</properties>
+		</profile>
+		<profile>
+			<id>gl20</id>
+			<properties>
+				<engine>gl20</engine>
+			</properties>
+		</profile>
+		<profile>
+			<id>soft</id>
+			<properties>
+				<engine>soft</engine>
+			</properties>
+		</profile>
+	</profiles>
 </project>
